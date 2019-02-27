@@ -1,2 +1,1 @@
-# applied_machine_learning
-Applied Machine Learning Course
+# Applied Machine Learning Course
