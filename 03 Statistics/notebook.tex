@@ -1,0 +1,893 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Math for Data Science - Statistics}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Math for Data Science -
+Statistics}\label{math-for-data-science---statistics}
+
+    \subsection{\#\#\# What is Statistic?}\label{what-is-statistic}
+
+    \begin{itemize}
+\tightlist
+\item
+  Dictionary Definition: A fact or piece of data obtained from a study
+  of large quantity of numerical data.
+\item
+  In general sense : The science of collecting, organizing presenting
+  and interpreting data.
+\item
+  Statistics is often categorized into descriptive and inferential
+  statistics.
+\item
+  It uses graphical methods to help makingnumbers visible for
+  communicationpurposes.
+\item
+  It uses analytical methods which providethe math to model and predict
+  variation.
+\end{itemize}
+
+\textbf{In Nutshell}
+
+    \subsection{\#\#\# Why do we need
+Statistics?}\label{why-do-we-need-statistics}
+
+    \begin{itemize}
+\tightlist
+\item
+  To understand data better.
+\item
+  To make effective decisions.
+\end{itemize}
+
+    \subsection{\#\#\# What are various types of
+Statistics?}\label{what-are-various-types-of-statistics}
+
+    \textbf{Types of Statistics:} * Descriptive Statistics - collection,
+presentation, description of data * Inferential Statistics - making
+decisions and drawing conclusions about populations.
+
+    \subsection{\#\#\# What are Descriptive
+Statistics?}\label{what-are-descriptive-statistics}
+
+    \begin{itemize}
+\tightlist
+\item
+  Descriptive statistics involves describing, summarizing and organizing
+  the data so it can be easily understood.
+\item
+  Enable us to present the data in a more meaningful way, which allows
+  simpler interpretation of the data.
+\item
+  Typically, there are two general types of statistic that are used to
+  describe data:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Measures of central tendency:} these are ways of describing
+    the central position of a frequency distribution for a group of
+    data.
+
+    \begin{itemize}
+    \tightlist
+    \item
+      To describe this central position we use measures such as
+      \textbf{mode, median, and mean.}
+    \end{itemize}
+  \item
+    \textbf{Measures of spread:} these are ways of summarizing a group
+    of data by describing how spread out the scores are.
+
+    \begin{itemize}
+    \tightlist
+    \item
+      To describe this spread we use measures such as \textbf{range,
+      quartiles, variance and standard deviation.}
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+    \subsection{\#\#\# What are the Measures of Central
+Tendency?}\label{what-are-the-measures-of-central-tendency}
+
+    \begin{itemize}
+\tightlist
+\item
+  Used to summarise where the 'centre' of the data is.
+\end{itemize}
+
+    \subsection{\#\#\# Measures of Central Tendency - In Layman's
+Terms}\label{measures-of-central-tendency---in-laymans-terms}
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{marks}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{1000}\PY{p}{]}
+         \PY{n}{sum\PYZus{}of\PYZus{}marks}\PY{o}{=}\PY{l+m+mi}{0}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{marks}\PY{p}{:}
+             \PY{n}{sum\PYZus{}of\PYZus{}marks}\PY{o}{=}\PY{n}{sum\PYZus{}of\PYZus{}marks}\PY{o}{+}\PY{n}{i}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}marks : }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sum\PYZus{}of\PYZus{}marks}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no.of students : }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{marks}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sum\PYZus{}of\PYZus{}marks}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{marks}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+total\_marks :  1035
+no.of students :  8
+mean:  129.375
+
+    \end{Verbatim}
+
+    \subsection{\#\#\# Mean}\label{mean}
+
+    \begin{itemize}
+\tightlist
+\item
+  The mean is also called as arithmetic average.
+\item
+  To calculate the average, or mean, add all values, then divide by the
+  number of individuals.
+\item
+  It is the ``center of mass.''
+\item
+  Mean gets affected by the extreme values (Outliers).
+\end{itemize}
+
+    \subsection{\#\#\# Median}\label{median}
+
+    \begin{itemize}
+\tightlist
+\item
+  The Median (M) is often called the "middle" value and is the value at
+  the midpoint of the observations when they are ranked from smallest to
+  largest value.
+\item
+  In an ordered array, the \textbf{median} is the \textbf{middle} number
+  i.e., the number that splits the distribution in half.
+\item
+  The median is not affected by the extreme values (Outliers).
+\end{itemize}
+
+\textbf{Steps to get median:} * Arrange the data from smallest to
+largest * If n is odd then the median is the single observation in the
+center (at the (n+1)/2 position in the ordering) * If n is even then the
+median is the average of the two middle observations (at the (n+1)/2
+position; i.e., in between)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{salaries}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{1000}\PY{p}{]}
+         \PY{n}{salaries}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{salaries : }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{salaries}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no.of data points : }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{salaries}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mid element index : }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{salaries}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{median: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{p}{(}\PY{n}{salaries}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{+}\PY{n}{salaries}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+salaries :  [2, 3, 4, 5, 6, 7, 8, 1000]
+no.of data points :  8
+mid element index :  4.0
+median:  5.5
+
+    \end{Verbatim}
+
+    \subsection{\#\#\# Mode}\label{mode}
+
+    \begin{itemize}
+\tightlist
+\item
+  Mode is the value that occurs most often.
+\item
+  Mode is not affected by extreme values (Outliers).
+\item
+  Mode is userd for either numerical or categorical data.
+\item
+  There may be no mode.
+\item
+  There may be serveral modes (Multi Modal)
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{Data} \PY{n}{Imputation} \PY{o}{\PYZhy{}} \PY{n}{Mean}\PY{p}{,} \PY{n}{Median}\PY{p}{,} \PY{n}{Mode}\PY{p}{,} \PY{n}{SD}
+        
+        \PY{n}{Student}\PY{p}{:}
+        \PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}\PY{o}{\PYZhy{}}
+        \PY{n}{Name}\PY{p}{,} \PY{n}{Age}\PY{p}{,} \PY{n}{Gender}\PY{p}{,} \PY{n}{School}\PY{p}{,} \PY{n}{Marks}\PY{p}{,} \PY{n}{No}\PY{o}{.}\PY{n}{Of} \PY{n}{Siblings}
+        
+        \PY{n}{Quantitative}\PY{p}{:} \PY{n}{Age}\PY{p}{,} \PY{n}{Marks}\PY{p}{,} \PY{n}{No}\PY{o}{.}\PY{n}{of} \PY{n}{Siblings}
+            \PY{n}{Descrete} \PY{p}{(}\PY{n}{Whole} \PY{n}{Number}\PY{p}{)}\PY{p}{:} \PY{n}{No}\PY{o}{.}\PY{n}{of} \PY{n}{Siblings} \PY{l+m+mi}{2}
+            \PY{n}{Continues} \PY{p}{(}\PY{n}{Real} \PY{n}{Number}\PY{p}{)}\PY{p}{:} \PY{n}{Age} \PY{p}{(}\PY{l+m+mf}{15.5}\PY{p}{)}\PY{p}{,} \PY{n}{Marks} \PY{p}{(}\PY{l+m+mf}{92.4}\PY{p}{)}
+            
+        \PY{n}{Qualitative}\PY{p}{:} \PY{n}{Name}\PY{p}{,} \PY{n}{Gender}\PY{p}{,} \PY{n}{School}
+        \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}            \PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{200}\PY{p}{,}\PY{l+m+mi}{300}\PY{p}{]}
+\end{Verbatim}
+
+
+    \subsection{\#\#\# Measure of Central Tendency Most Useful
+When?}\label{measure-of-central-tendency-most-useful-when}
+
+    
+
+    \subsection{\#\#\# What are the Measures of
+Spread?}\label{what-are-the-measures-of-spread}
+
+    \begin{itemize}
+\tightlist
+\item
+  Measures of Spread tells us how much a data sample is spread out or
+  scattered.
+\item
+  Measures of Spread
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Range}
+  \item
+    \textbf{Inter Quartile Range}
+  \item
+    \textbf{Standard Deviation}
+  \item
+    \textbf{Variance}
+  \end{itemize}
+\end{itemize}
+
+    \subsection{\#\#\# Range}\label{range}
+
+    \begin{itemize}
+\tightlist
+\item
+  The range is the Maximum value minus the minimum value and gives the
+  full extent of the range of observations.
+\item
+  Notice that the range is one number, the difference between the
+  Maximum and the minimum.
+\end{itemize}
+
+    \subsection{\#\#\# Inter Quartile Range
+(IQR)}\label{inter-quartile-range-iqr}
+
+    \begin{itemize}
+\tightlist
+\item
+  The Inter‐Quartile Range (or sometimes Inner‐Quartile Range).
+\item
+  We will use the notation IQR -- is defined as the difference between
+  the 3rd quartile and the 1st quartile.
+\item
+  Notice that the IQR gives the range of the middle 50\% of the data.
+\end{itemize}
+
+    \subsection{\#\#\# Standard Deviation}\label{standard-deviation}
+
+    \begin{itemize}
+\tightlist
+\item
+  Quantify spread of the distribution by measuring how far observations
+  are from mean,
+\item
+  In other terms this measure is based upon the deviations of each value
+  from the mean or average value.
+\item
+  The interpretation of the standard deviation is as the typical or
+  average distance between observed data values and the sample mean
+\item
+  To calculate the standard deviation, we take each observation and
+  subtract the sample mean, x‐bar.
+\item
+  We square each of the differences, and add these squared deviations.
+\item
+  We divide that total by n -- 1 where n is the number of observations.
+\item
+  At this stage we have what is called the \textbf{variance, or
+  s‐squared.}
+\item
+  This is sometimes used in statistical methods, however, it is in units
+  which are the square of the original units which makes it difficult to
+  interpret.
+\item
+  We take the square root to obtain the final result for the standard
+  deviation, s. This value will have the units of the original data and
+  have the interpretation of the typical distance an observation differs
+  from the sample mean.
+\item
+  Because each value is weighted equally, the standard deviation is
+  influenced by outliers and extreme values.
+\item
+  In some scenarios, the standard deviation is less reliable than the
+  mean in this regard and should be used with caution for highly skewed
+  distribution or distributions with extreme outliers. Even moderate
+  skewness and relatively mild outliers can have a dramatic impact on
+  the standard deviation.
+\end{itemize}
+
+\textbf{Variance}
+
+    \textbf{Standard Deviation}
+
+    \subsection{\#\#\# Variance and Standard Deviation of a
+Population}\label{variance-and-standard-deviation-of-a-population}
+
+    
+
+    \subsection{\#\#\# What are the key properties of Standard
+Deviation?}\label{what-are-the-key-properties-of-standard-deviation}
+
+    \paragraph{\texorpdfstring{Properties of The Standard Deviation
+(\emph{s})}{Properties of The Standard Deviation (s)}}\label{properties-of-the-standard-deviation-s}
+
+\begin{itemize}
+\tightlist
+\item
+  Standard Deviation \emph{s} measures the spread about the mean and
+  should be used only when mean is choosen as the measure of center.
+\item
+  Standard Deviation \emph{s=0}, only when there is \textbf{no spread} .
+  This happens only when all observations have the same value.
+  Otherwise, \emph{s\textgreater{}0}.
+\item
+  As, the observations become more spread out about their mean, \emph{s}
+  gets larger.
+\item
+  Standard Deviation \emph{s}, is not resistant to outliers. A few
+  outliers can make \emph{s} very large
+\end{itemize}
+
+    \subsection{\#\#\# What is the Five‐Number
+Summary?}\label{what-is-the-fivenumber-summary}
+
+    \paragraph{The Five-Numer Summary:}\label{the-five-numer-summary}
+
+\begin{itemize}
+\tightlist
+\item
+  The five values: minimum, Q1, Median, Q3, and Maximum make up what is
+  commonly called ``the five‐number summary''.
+\item
+  Each of these values represents a measure of position or location.
+\item
+  As mentioned abobe, the Five-Numer Summary of a set of obsercations
+  consists of the smallest observation, the first quartile, the median,
+  the third quartile and the largest observation, written in order from
+  smallest to largest.
+\item
+  \textbf{Minimum Q1 Median Q3 Maximum}
+\end{itemize}
+
+    \subsection{\#\#\# How to represent Five Number Summary using Box
+Plot?}\label{how-to-represent-five-number-summary-using-box-plot}
+
+    
+
+    \subsection{\#\#\# Suspected outliers: how to detect
+outliers?}\label{suspected-outliers-how-to-detect-outliers}
+
+\begin{itemize}
+\tightlist
+\item
+  Outliers are troublesome data points, and it is important to be able
+  to identify them.
+\item
+  One way to raise the flag for a suspected outlier is to compare the
+  distance from the suspicious data point to the nearest quartile (Q1 or
+  Q3).
+\item
+  We then compare this distance to the interquartile range (distance
+  between Q1 and Q3).
+\item
+  We call an observation a suspected outlier if it falls more than 1.5
+  times the size of the interquartile range (IQR) above the first
+  quartile or below the third quartile.
+\item
+  \textbf{This is called the ``1.5 * IQR rule for outliers."}
+\end{itemize}
+
+    \subsection{\#\#\# What are Inferential
+Statistics?}\label{what-are-inferential-statistics}
+
+    \begin{itemize}
+\tightlist
+\item
+  Inferential statistics is one of the two main branches of statistics.
+\item
+  Inferential statistics use a random sample of data taken from a
+  population to \textbf{describe} and make \textbf{inferences} about the
+  \textbf{population.}
+\item
+  Inferential statistics are valuable when \textbf{examination of each
+  member of an entire population is not convenient or possible. }
+
+  \begin{itemize}
+  \tightlist
+  \item
+    For example, to measure the diameter of each nail that is
+    manufactured in a mill is impractical.
+  \item
+    You can measure the diameters of a representative random sample of
+    nails.
+  \item
+    You can use the information from the sample to make generalizations
+    about the diameters of all of the nails.
+  \end{itemize}
+\end{itemize}
+
+    \subsection{\#\#\# Commonly used Terms - Sample,
+Population}\label{commonly-used-terms---sample-population}
+
+    
+
+    \subsection{\#\#\# What is Hypothesis?}\label{what-is-hypothesis}
+
+    \begin{itemize}
+\tightlist
+\item
+  Hypothesis is a theoretical statement concerning a certain feature of
+  the studied statistical population.
+\end{itemize}
+
+    \subsection{\#\#\# What is a test
+statistic?}\label{what-is-a-test-statistic}
+
+    \begin{itemize}
+\tightlist
+\item
+  It is a numerical value calculated from our sample which forms a link
+  between our sample and the null hypothesis.
+\end{itemize}
+
+    \subsection{\#\#\# What is Hypothesis
+Testing?}\label{what-is-hypothesis-testing}
+
+    \begin{itemize}
+\tightlist
+\item
+  Hypothesis testing (or significance test): a procedure of assessing
+  whether sample data is consistent with statements (hypotheses) made
+  about the statistical population.
+\item
+  Briefly, we make a decision about the hypothesis on the basis of our
+  sample data.
+\item
+  We want to get answers to questions starting typically like these:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    „Is there a difference between\ldots{}''
+  \item
+    „Is there a relationship between\ldots{}''
+  \end{itemize}
+\end{itemize}
+
+    \subsection{\#\#\# What are various Types of
+Hypotheses?}\label{what-are-various-types-of-hypotheses}
+
+    \begin{itemize}
+\tightlist
+\item
+  There are two kinds of hypothesis:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    H1: the statement we actually want to test
+
+    \begin{itemize}
+    \tightlist
+    \item
+      usually postulates a non-zero difference or relationship (called
+      `alternative hypothesis')
+    \item
+      E.g: „The mean weight of males and females are different.''
+    \end{itemize}
+  \item
+    H0: a statement which usually claims a zero difference or
+    relationship against the H1 (called `null hypothesis').
+
+    \begin{itemize}
+    \tightlist
+    \item
+      E.g: „The mean weight of males and females are not different.''
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+    \subsection{\#\#\# Inferential Statistics - What is a confidence
+interval?}\label{inferential-statistics---what-is-a-confidence-interval}
+
+    \begin{itemize}
+\tightlist
+\item
+  A confidence interval is simply a way to measure how well your sample
+  represents the population you are studying.
+\end{itemize}
+
+    \subsection{\#\#\# What are the different types of
+Data?}\label{what-are-the-different-types-of-data}
+
+    
+
+    \subsection{\#\#\# What are the different Levels of
+Measurement?}\label{what-are-the-different-levels-of-measurement}
+
+    
+
+    \subsection{\#\#\# Skewed Vs. Symmetric
+Data}\label{skewed-vs.-symmetric-data}
+
+    
+
+    \subsection{\#\#\# What are the measures of
+Symmetry?}\label{what-are-the-measures-of-symmetry}
+
+    \begin{itemize}
+\tightlist
+\item
+  The \textbf{mean} is pulled toward the skew.
+\end{itemize}
+
+    \subsection{\#\#\# What are the Common Data
+Distributions?}\label{what-are-the-common-data-distributions}
+
+\begin{itemize}
+\tightlist
+\item
+  Discrete
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Symmetric
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Binomial Distribution
+    \item
+      Uniform Discrete Distribution
+    \end{itemize}
+  \item
+    Asymmetric a.k.a Skewed
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Geometric Distribution
+    \item
+      Negative Binomial Distribution
+    \item
+      Hypergeometric Distribution
+    \end{itemize}
+  \end{itemize}
+\item
+  Continues
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Symmetric
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Uniform a.k.a Multimodal Distribution
+    \item
+      Triangular Distribution
+    \item
+      Normal Distribution
+    \item
+      Cauchy Distribution
+    \end{itemize}
+  \item
+    Asymmetric or Skewed
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Exponential Distribution
+    \item
+      Lognormal Gamma Weibull Distribution
+    \item
+      Minimum Extreme Distribution
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+    
+
+    \subsection{\#\#\# How to perform data
+analysis?}\label{how-to-perform-data-analysis}
+
+    \textbf{Guidelines:} * ALWAYS PLOT DATA BEFORE DECIDING ON A NUMERICAL
+SUMMARY. * \textbf{How to choose summary statistics?} * Use: 5-number
+summary is better than the mean and s.d. for skewed data; * Use mean \&
+s.d. for symmetric data.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
